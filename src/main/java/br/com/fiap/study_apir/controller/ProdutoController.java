@@ -59,7 +59,8 @@ public class ProdutoController {
 
     // método DELETE
     @DeleteMapping
-    public ResponseEntity<String> delete(){
+    public ResponseEntity<String> delete(Long id){
+        mockup.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Produo Excluído");
     }
 }

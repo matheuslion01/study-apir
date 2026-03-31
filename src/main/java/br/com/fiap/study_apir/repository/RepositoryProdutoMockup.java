@@ -30,4 +30,9 @@ public class RepositoryProdutoMockup {
         return produtos.stream()
         .filter(p -> p.getId().equals(id)).findFirst();
     }
+
+    public boolean deleteById(Long id){
+        
+        return produtos.removeIf(p -> p.getId().equals(id));
+    }
 }
