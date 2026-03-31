@@ -1,9 +1,9 @@
 package br.com.fiap.study_apir.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,10 +37,11 @@ public class ProdutoController {
     // vamos alterar - recebe um id de produto >> Se recebermos 
     @GetMapping("/{id}") 
     public ResponseEntity<Produto> findById(@PathVariable Long id){
-        // colocamos o método - passamos o id que o método tá esperando 
-        // vai retornar um produto - então criamos a variável produto 
-        Produto produto =  mockup.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(produto); // não retorna mais um texto, retorna o objeto produto
+        return mockup
+            .findById(id)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+      
     }
 
     // find all
@@ -62,3 +63,4 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Produo Excluído");
     }
 }
+
